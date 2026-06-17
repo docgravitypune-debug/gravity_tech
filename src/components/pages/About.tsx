@@ -3,6 +3,7 @@ import { useState } from 'react'
 import type { FormEvent } from 'react'
 import PageHero from '../PageHero'
 import TextRollButton from '../TextRollButton'
+import AnimatedSection from '../AnimatedSection'
 import {
   BUILD_DIFFERENTLY,
   GRADIENT_LIGHT,
@@ -276,6 +277,26 @@ function About() {
           </div>
         </div>
       </section>
+
+      <AnimatedSection
+        className="px-5 py-16 sm:px-8 lg:px-12"
+        style={{ background: 'linear-gradient(135deg, #fce4f3 0%, #e8d5f5 40%, #f0d5a0 100%)' }}
+      >
+        <div className="mx-auto max-w-4xl text-center">
+          <h2 className="text-3xl font-semibold text-gray-900 sm:text-4xl">
+            We don&apos;t just hire.
+            <span className="block text-[#1fb6e8]">We build careers.</span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-gray-600">
+            SCIP — our Specialized Corporate Incubation Program — trains driven individuals on live
+            enterprise projects. If you&apos;re serious about building a software career, GravityTech
+            is where to start.
+          </p>
+          <div className="mt-8 flex justify-center">
+            <TextRollButton label="Learn About SCIP →" href="/careers#scip" variant="primary" />
+          </div>
+        </div>
+      </AnimatedSection>
 
       {/* Section 7: Tech Stack */}
       <section className="py-16 sm:py-20 lg:py-28" style={{ background: GRADIENT_LIGHT }}>

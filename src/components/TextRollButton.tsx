@@ -5,7 +5,7 @@ interface TextRollButtonProps {
   label: string
   href?: string
   onClick?: () => void
-  variant?: 'primary' | 'dark' | 'outline' | 'white'
+  variant?: 'primary' | 'dark' | 'outline' | 'white' | 'outline-white'
   size?: 'sm' | 'md' | 'lg'
   className?: string
   type?: 'button' | 'submit'
@@ -15,7 +15,9 @@ const variantStyles = {
   primary: 'bg-[#1fb6e8] hover:bg-[#0da8da] text-white',
   dark: 'bg-gray-900 text-white',
   outline: 'border border-gray-200 bg-white text-gray-900',
-  white: 'bg-white text-[#1fb6e8] hover:bg-gray-50',
+  white: 'bg-white text-gray-900 hover:bg-gray-50',
+  'outline-white':
+    'bg-transparent text-white border border-white/30 hover:border-[#1fb6e8]/50 hover:bg-[#1fb6e8]/10',
 }
 
 const sizeStyles = {
@@ -40,8 +42,17 @@ function TextRollButton({
   type = 'button',
 }: TextRollButtonProps) {
   const iconColor =
-    variant === 'primary' || variant === 'white' ? 'text-[#1fb6e8]' : 'text-gray-900'
-  const circleBg = variant === 'white' ? 'bg-[#1fb6e8]/10' : 'bg-white'
+    variant === 'primary'
+      ? 'text-[#1fb6e8]'
+      : variant === 'white' || variant === 'dark' || variant === 'outline-white'
+        ? 'text-white'
+        : 'text-gray-900'
+  const circleBg =
+    variant === 'white'
+      ? 'bg-gray-900'
+      : variant === 'dark' || variant === 'outline-white'
+        ? 'bg-white/10'
+        : 'bg-white'
 
   const content = (
     <>

@@ -342,6 +342,45 @@ function Careers() {
         </div>
       </section>
 
+      <section className="bg-[#0f0f0f] px-5 py-16 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-[1440px]">
+          <h2 className="text-3xl font-semibold text-white sm:text-4xl">
+            What happens after
+            <span className="block text-[#1fb6e8]">you apply?</span>
+          </h2>
+
+          <div className="relative mt-12 flex flex-col gap-8 sm:flex-row sm:gap-0">
+            <div className="absolute left-[12.5%] right-[12.5%] top-6 hidden h-px bg-gradient-to-r from-[#1fb6e8]/30 via-[#7c3aed]/30 to-[#1fb6e8]/30 sm:block" />
+            {[
+              {
+                title: 'Application Review',
+                desc: 'Our talent team reviews within 2 business days.',
+              },
+              {
+                title: 'Intro Call',
+                desc: '15-min call to understand your background and goals.',
+              },
+              {
+                title: 'Technical Round',
+                desc: 'A short practical task relevant to the role you applied for.',
+              },
+              {
+                title: 'Offer & Onboarding',
+                desc: 'Offer letter, onboarding timeline, and your first project.',
+              },
+            ].map((step, index) => (
+              <div key={step.title} className="flex-1 px-4 text-center">
+                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full border border-[#1fb6e8]/40 bg-[#141414]">
+                  <span className="text-sm font-mono text-[#1fb6e8]">0{index + 1}</span>
+                </div>
+                <h3 className="mb-2 text-sm font-semibold text-white">{step.title}</h3>
+                <p className="text-xs leading-relaxed text-gray-500">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Open Positions - kept from previous version */}
       <section id="openings" className="bg-[#F5F5F5] pb-16 pt-16 sm:pb-20 sm:pt-20 lg:pb-28 lg:pt-28">
         <div className="mx-auto max-w-[1440px]">

@@ -1,6 +1,8 @@
 import PageHero from '../PageHero'
 import SectionBadge from '../SectionBadge'
 import TextRollButton from '../TextRollButton'
+import AnimatedSection from '../AnimatedSection'
+import { CheckCircle2 } from 'lucide-react'
 import { SERVICES_DETAIL, WHY_GRAVITYTECH } from '../../constants/data'
 
 const HERO_STATS = [
@@ -122,6 +124,34 @@ function Services() {
           </div>
         </div>
       </section>
+
+      <AnimatedSection className="bg-[#f8f9fa] px-5 py-16 sm:px-8 lg:px-12">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-10 lg:grid-cols-2">
+          <div>
+            <h2 className="mb-4 text-3xl font-semibold text-gray-900 sm:text-4xl">
+              Every service. One delivery partner.
+            </h2>
+            <p className="max-w-xl text-sm leading-relaxed text-gray-600">
+              You don&apos;t need four different agencies for CRM, HR tech, enterprise software, and
+              payroll. GravityTech does all four — with one unified team, one point of contact, and
+              one shared context across your entire tech stack.
+            </p>
+          </div>
+          <div className="space-y-4">
+            {[
+              'Same team across all service lines',
+              'Shared context — no repeated briefings',
+              'One contract, one invoice, one relationship',
+              'Scale up or down across services as needed',
+            ].map((item) => (
+              <div key={item} className="flex gap-3 text-sm text-gray-700">
+                <CheckCircle2 size={18} className="shrink-0 text-[#1fb6e8]" />
+                <p>{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </AnimatedSection>
 
       <section className="bg-[#F5F5F5] pb-16 pt-16 sm:pb-20 sm:pt-20 lg:pb-28 lg:pt-28">
         <div className="mx-auto max-w-[1440px]">

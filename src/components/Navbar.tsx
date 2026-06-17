@@ -1,86 +1,126 @@
 import { Clock, Menu, X } from 'lucide-react'
-import { useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
-import { NAV_ITEMS } from '../constants/data'
+import { useEffect, useMemo, useState } from 'react'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { useIndiaTime } from '../hooks/useIndiaTime'
 import TextRollButton from './TextRollButton'
 
+const NAV_ITEMS = [
+  { label: 'About Us', to: '/about' },
+  { label: 'Services', to: '/services' },
+  { label: 'Careers', to: '/careers' },
+]
+
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isDarkHeroVisible, setIsDarkHeroVisible] = useState(false)
   const indiaTime = useIndiaTime()
+  const location = useLocation()
+
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 20)
+    onScroll()
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  useEffect(() => {
+    const darkRoutes = ['/about', '/careers']
+    if (!darkRoutes.includes(location.pathname)) {
+      setIsDarkHeroVisible(false)
+      return
+    }
+
+    const hero = document.querySelector('[data-dark-nav-hero]')
+    if (!hero) {
+      setIsDarkHeroVisible(false)
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsDarkHeroVisible(entry.isIntersecting)
+      },
+      { threshold: 0.25 }
+    )
+
+    observer.observe(hero)
+    return () => observer.disconnect()
+  }, [location.pathname])
+
+  const useDarkCapsules = useMemo(
+    () => ['/about', '/careers'].includes(location.pathname) && isDarkHeroVisible,
+    [location.pathname, isDarkHeroVisible]
+  )
+
+  const capsuleClass = useMemo(() => {
+    if (useDarkCapsules) {
+      return `rounded-full border backdrop-blur-sm ${
+        isScrolled
+          ? 'bg-gray-900/90 border-gray-800 shadow-md'
+          : 'bg-gray-900/80 border-gray-800'
+      }`
+    }
+    return `rounded-full border backdrop-blur-sm ${
+      isScrolled ? 'bg-white/95 border-gray-100 shadow-md' : 'bg-white/90 border-gray-100'
+    }`
+  }, [isScrolled, useDarkCapsules])
+
+  const logoTextClass = useDarkCapsules ? 'text-white' : 'text-gray-900'
+  const navTextClass = ({ isActive }: { isActive: boolean }) =>
+    `text-sm font-medium transition-colors duration-200 ${
+      useDarkCapsules
+        ? isActive
+          ? 'text-white'
+          : 'text-gray-300 hover:text-white'
+        : isActive
+          ? 'text-gray-900'
+          : 'text-gray-600 hover:text-gray-900'
+    }`
+  const clockText = useDarkCapsules ? 'text-gray-300' : 'text-gray-600'
 
   return (
     <>
-      <nav className="relative z-20 mx-auto max-w-[1440px] p-2 sm:p-3">
-        <div className="flex items-center justify-between rounded-full bg-white p-[5px]">
-          <div className="flex items-center gap-6">
-            <Link
-              to="/"
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-900 sm:h-10 sm:w-10"
-            >
-              <span className="text-[10px] font-bold tracking-tight text-white sm:text-[11px]">
-                GT
-              </span>
-            </Link>
-
-            <div className="hidden items-center gap-6 md:flex">
-              {NAV_ITEMS.map((item) => (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  className={({ isActive }) =>
-                    `text-sm transition-colors duration-300 ${
-                      isActive
-                        ? 'text-gray-900 underline'
-                        : 'text-gray-900 hover:text-gray-500'
-                    }`
-                  }
-                >
-                  {item.label}
-                </NavLink>
-              ))}
-            </div>
+      <header className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-5 py-4 sm:px-8">
+        <Link to="/" className={`${capsuleClass} flex items-center gap-2.5 px-4 py-2.5`}>
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-900 text-xs font-bold text-white">
+            GT
           </div>
+          <span className={`hidden text-sm font-semibold sm:block ${logoTextClass}`}>GravityTech</span>
+        </Link>
 
-          <div className="hidden items-center gap-5 md:flex">
-            <span className="hidden text-[13px] text-gray-600 lg:inline">
-              Based in Pune, India · Global delivery
-            </span>
+        <nav
+          className={`absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 px-5 py-2.5 md:flex ${capsuleClass}`}
+        >
+          {NAV_ITEMS.map((item) => (
+            <NavLink key={item.to} to={item.to} className={navTextClass}>
+              {item.label}
+            </NavLink>
+          ))}
+        </nav>
 
-            <div className="flex items-center gap-1.5 text-[13px] text-gray-600">
-              <Clock size={14} aria-hidden="true" />
-              <span>{indiaTime} IST</span>
-            </div>
-
-            <TextRollButton
-              label="Start a Project"
-              href="/careers#apply"
-              variant="dark"
-              size="sm"
-            />
+        <div className="flex items-center gap-3">
+          <div className={`${capsuleClass} hidden items-center gap-1.5 px-3 py-2 lg:flex`}>
+            <Clock size={13} className={useDarkCapsules ? 'text-gray-400' : 'text-gray-500'} />
+            <span className={`text-xs ${clockText}`}>{indiaTime} IST</span>
           </div>
-
+          <TextRollButton
+            label="Start a Project"
+            href="/careers#apply"
+            variant="dark"
+            className="!rounded-full !py-2.5 !pl-5 !pr-2 text-sm"
+          />
           <button
             type="button"
-            className="flex items-center gap-2 rounded-full bg-gray-900 px-4 py-2 text-sm font-medium text-white md:hidden"
+            className="rounded-full bg-gray-900 p-2.5 text-white md:hidden"
             onClick={() => setIsMenuOpen((open) => !open)}
             aria-expanded={isMenuOpen}
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
           >
-            {isMenuOpen ? (
-              <>
-                Close
-                <X size={16} aria-hidden="true" />
-              </>
-            ) : (
-              <>
-                Menu
-                <Menu size={16} aria-hidden="true" />
-              </>
-            )}
+            {isMenuOpen ? <X size={18} aria-hidden="true" /> : <Menu size={18} aria-hidden="true" />}
           </button>
         </div>
-      </nav>
+      </header>
 
       <div
         className={`fixed inset-0 z-50 md:hidden ${isMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}
@@ -118,7 +158,7 @@ function Navbar() {
           </nav>
 
           <TextRollButton
-            label="Talk to Us"
+            label="Start a Project"
             href="/careers#apply"
             variant="dark"
             size="lg"
