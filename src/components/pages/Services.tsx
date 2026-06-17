@@ -1,3 +1,4 @@
+import PageHero from '../PageHero'
 import SectionBadge from '../SectionBadge'
 import TextRollButton from '../TextRollButton'
 import { SERVICES_DETAIL, WHY_GRAVITYTECH } from '../../constants/data'
@@ -12,43 +13,35 @@ const HERO_STATS = [
 function Services() {
   return (
     <main>
-      <section
-        className="relative flex min-h-screen flex-col"
-        style={{
-          background: 'linear-gradient(160deg, #f0f9ff 0%, #eaf8fe 50%, #e0f2fe 100%)',
-        }}
-      >
-        <div className="flex-1" />
-        <div className="relative z-20 mx-auto w-full max-w-[1440px] px-5 pb-14 sm:px-8 sm:pb-16 lg:px-12 lg:pb-20">
-          <p className="mb-5 text-[13px] tracking-wide text-gray-900 sm:mb-8 sm:text-sm">
-            GravityTech Software
-          </p>
+      <PageHero>
+        <p className="mb-5 text-[13px] tracking-wide text-gray-900 sm:mb-8 sm:text-sm">
+          GravityTech Software
+        </p>
 
-          <h1 className="max-w-5xl text-[clamp(1.75rem,7vw,4.2rem)] font-medium leading-[1.08] tracking-[-0.03em] text-gray-900 sm:text-[clamp(2.5rem,5vw,4.2rem)]">
-            Enterprise IT services
-            <span className="sm:hidden"> </span>
-            <br className="hidden sm:block" />
-            built for scale
-            <span className="sm:hidden"> </span>
-            <br className="hidden sm:block" />
-            and reliability.
-          </h1>
+        <h1 className="max-w-5xl text-[clamp(1.75rem,7vw,4.2rem)] font-medium leading-[1.08] tracking-[-0.03em] text-gray-900 sm:text-[clamp(2.5rem,5vw,4.2rem)]">
+          Enterprise IT services
+          <span className="sm:hidden"> </span>
+          <br className="hidden sm:block" />
+          built for scale
+          <span className="sm:hidden"> </span>
+          <br className="hidden sm:block" />
+          and reliability.
+        </h1>
 
-          <div className="mt-8 flex flex-col gap-4 sm:mt-12 sm:flex-row sm:flex-wrap sm:items-center sm:gap-5">
-            <TextRollButton label="Explore services →" href="#services-list" variant="primary" />
-            <div className="flex flex-wrap gap-2">
-              {HERO_STATS.map((stat) => (
-                <span
-                  key={stat}
-                  className="rounded-full bg-white px-4 py-2 text-sm font-medium shadow-sm"
-                >
-                  {stat}
-                </span>
-              ))}
-            </div>
+        <div className="mt-8 flex flex-col gap-4 sm:mt-12 sm:flex-row sm:flex-wrap sm:items-center sm:gap-5">
+          <TextRollButton label="Explore services →" href="#services-list" variant="primary" />
+          <div className="flex flex-wrap gap-2">
+            {HERO_STATS.map((stat) => (
+              <span
+                key={stat}
+                className="rounded-full bg-white px-4 py-2 text-sm font-medium shadow-sm"
+              >
+                {stat}
+              </span>
+            ))}
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section id="services-list" className="overflow-hidden bg-white pb-12 pt-16 sm:pb-16 sm:pt-20 lg:pb-24 lg:pt-32">
         <div className="mx-auto max-w-[1440px]">

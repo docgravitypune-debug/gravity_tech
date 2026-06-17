@@ -59,6 +59,7 @@ function ServiceCard({
   description,
   bg,
   gradient,
+  imageUrl,
   icon: Icon,
   aspectClass,
   buttonVariant,
@@ -73,14 +74,19 @@ function ServiceCard({
         className={`group relative ${aspectClass} cursor-pointer overflow-hidden rounded-2xl`}
         style={{ background: bg }}
       >
+        <img
+          src={imageUrl}
+          alt={title}
+          loading="lazy"
+          className="absolute inset-0 h-full w-full object-cover opacity-25 mix-blend-luminosity transition-opacity duration-500 group-hover:opacity-35"
+        />
         <div
-          className="absolute inset-0 opacity-80 transition-opacity duration-500 group-hover:opacity-100"
+          className="absolute inset-0 opacity-70"
           style={{ background: gradient }}
         />
-        <div className="absolute right-1/4 top-1/4 h-24 w-24 animate-pulse rounded-full bg-white/10 blur-xl" />
-        <div className="animate-float absolute bottom-1/3 left-1/3 h-16 w-16 rounded-full bg-white/5 blur-lg" />
-        <div className="absolute left-6 top-6">
-          <Icon className="text-white/60" size={32} aria-hidden="true" />
+        <div className="absolute right-1/4 top-1/3 h-32 w-32 rounded-full bg-white/10 blur-2xl" />
+        <div className="absolute left-5 top-5 z-10">
+          <Icon className="text-white/70" size={20} aria-hidden="true" />
         </div>
         <ExpandHoverButton
           label={buttonLabel}

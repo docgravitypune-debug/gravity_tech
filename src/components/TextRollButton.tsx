@@ -5,7 +5,7 @@ interface TextRollButtonProps {
   label: string
   href?: string
   onClick?: () => void
-  variant?: 'primary' | 'dark' | 'outline'
+  variant?: 'primary' | 'dark' | 'outline' | 'white'
   size?: 'sm' | 'md' | 'lg'
   className?: string
   type?: 'button' | 'submit'
@@ -15,6 +15,7 @@ const variantStyles = {
   primary: 'bg-[#1fb6e8] hover:bg-[#0da8da] text-white',
   dark: 'bg-gray-900 text-white',
   outline: 'border border-gray-200 bg-white text-gray-900',
+  white: 'bg-white text-[#1fb6e8] hover:bg-gray-50',
 }
 
 const sizeStyles = {
@@ -38,7 +39,9 @@ function TextRollButton({
   className = '',
   type = 'button',
 }: TextRollButtonProps) {
-  const iconColor = variant === 'primary' ? 'text-[#1fb6e8]' : 'text-gray-900'
+  const iconColor =
+    variant === 'primary' || variant === 'white' ? 'text-[#1fb6e8]' : 'text-gray-900'
+  const circleBg = variant === 'white' ? 'bg-[#1fb6e8]/10' : 'bg-white'
 
   const content = (
     <>
@@ -49,7 +52,7 @@ function TextRollButton({
         </span>
       </div>
       <div
-        className={`flex items-center justify-center overflow-hidden rounded-full bg-white ${circleSizes[size]}`}
+        className={`flex items-center justify-center overflow-hidden rounded-full ${circleBg} ${circleSizes[size]}`}
       >
         <ArrowRight
           size={14}

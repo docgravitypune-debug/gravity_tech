@@ -1,15 +1,24 @@
 import type { LucideIcon } from 'lucide-react'
 import {
+  ArrowUpRight,
   BookOpen,
+  Briefcase,
   Building2,
   Clock,
   Cpu,
+  Crown,
+  DollarSign,
+  FileText,
   Globe,
+  GraduationCap,
+  Headphones,
   Heart,
   Layers,
+  Lightbulb,
   Monitor,
   Presentation,
   Rocket,
+  Scale,
   Search,
   Shield,
   Star,
@@ -18,8 +27,14 @@ import {
   Users,
   Users2,
   Wallet,
-  FileText,
+  Zap,
 } from 'lucide-react'
+
+export const GRADIENT_LIGHT =
+  'linear-gradient(135deg, #fce4f3 0%, #e8d5f5 30%, #d4c5f0 60%, #f0d5a0 100%)'
+
+export const GRADIENT_LIGHT_SHORT =
+  'linear-gradient(135deg, #fce4f3 0%, #e8d5f5 40%, #f0d5a0 100%)'
 
 export const NAV_ITEMS = [
   { label: 'Home', to: '/' },
@@ -60,6 +75,8 @@ export const HOME_SERVICES = [
     buttonVariant: 'light' as const,
     buttonLabel: 'Learn more',
     buttonWidth: 'group-hover:w-[148px]',
+    imageUrl:
+      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80',
   },
   {
     id: 'talent',
@@ -73,6 +90,8 @@ export const HOME_SERVICES = [
     buttonVariant: 'dark' as const,
     buttonLabel: 'View service',
     buttonWidth: 'group-hover:w-[168px]',
+    imageUrl:
+      'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&q=80',
   },
   {
     id: 'enterprise',
@@ -86,6 +105,8 @@ export const HOME_SERVICES = [
     buttonVariant: 'light' as const,
     buttonLabel: 'Learn more',
     buttonWidth: 'group-hover:w-[148px]',
+    imageUrl:
+      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
   },
   {
     id: 'payroll',
@@ -99,6 +120,8 @@ export const HOME_SERVICES = [
     buttonVariant: 'dark' as const,
     buttonLabel: 'View service',
     buttonWidth: 'group-hover:w-[168px]',
+    imageUrl:
+      'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80',
   },
 ] as const
 
@@ -412,4 +435,300 @@ export const SCIP_BENEFITS = [
 export const APPLY_ROLES = [
   ...ROLES.map((r) => r.title),
   'SCIP Program',
+] as const
+
+export const BUILD_DIFFERENTLY = [
+  {
+    title: 'Driving Strategy to Production',
+    description:
+      'We move from roadmap to reality through delivery, deployment, governance, and measurable enterprise outcomes.',
+  },
+  {
+    title: 'Consultants with Engineering Depth',
+    description:
+      'Strategy clarity and engineering partnership in the same room reduces the gap between advice and execution.',
+  },
+  {
+    title: 'Strong Data & Knowledge Foundation',
+    description:
+      'Enterprise context is engineered into every client engagement — entities, relationships, and business logic.',
+  },
+  {
+    title: 'Measurable Outcomes Built In',
+    description:
+      'Success is defined before delivery begins, with quality gates, ROI visibility, and attribution built into the engagement.',
+  },
+] as const
+
+export const TEAM_MEMBERS = [
+  {
+    name: 'Arjun Sharma',
+    role: 'Co-Founder & CEO',
+    photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80',
+  },
+  {
+    name: 'Priya Kulkarni',
+    role: 'Co-Founder & CTO',
+    photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80',
+  },
+  {
+    name: 'Rahul Desai',
+    role: 'Co-Founder & Head of Delivery',
+    photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80',
+  },
+  {
+    name: 'Sneha Joshi',
+    role: 'Co-Founder & COO',
+    photo: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&q=80',
+  },
+  {
+    name: 'Vikram Nair',
+    role: 'Co-Founder & Head of Engineering',
+    photo: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80',
+  },
+  {
+    name: 'Aisha Patel',
+    role: 'Co-Founder & Chief AI Officer',
+    photo: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80',
+  },
+] as const
+
+export const TECH_STACK = [
+  {
+    name: 'React & Next.js',
+    details: 'v18, App Router, RSC',
+    bgColor: 'linear-gradient(135deg,#61dafb,#0070f3)',
+  },
+  {
+    name: 'Node.js & Python',
+    details: 'Express, FastAPI, Django',
+    bgColor: 'linear-gradient(135deg,#68a063,#3776ab)',
+  },
+  {
+    name: 'AWS & Azure',
+    details: 'EC2, Lambda, AKS, CDK',
+    bgColor: 'linear-gradient(135deg,#ff9900,#0089d6)',
+  },
+  {
+    name: 'PostgreSQL & Redis',
+    details: 'Supabase, RDS, ElastiCache',
+    bgColor: 'linear-gradient(135deg,#336791,#dc382d)',
+  },
+] as const
+
+export const MAP_OFFICES = [
+  { city: 'Pune', country: 'India', flag: '🇮🇳', x: '72%', y: '45%' },
+  { city: 'Dubai', country: 'UAE', flag: '🇦🇪', x: '62%', y: '42%' },
+  { city: 'Delaware', country: 'USA', flag: '🇺🇸', x: '22%', y: '35%' },
+] as const
+
+export const LIFE_AT_PHOTOS = [
+  {
+    src: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80',
+    alt: 'Team collaboration around laptop',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&q=80',
+    alt: 'Team meeting in office',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80',
+    alt: 'Whiteboard presentation session',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80',
+    alt: 'Modern office workspace',
+  },
+] as const
+
+export const WHY_JOIN_ROWS = [
+  {
+    photo: 'https://images.unsplash.com/photo-1556761175-4b46a572b786?w=800&q=80',
+    title: 'Where innovation is everyday work',
+    description:
+      "Every sprint, every delivery, every decision pushes us forward. You won't find anyone here doing things just because they've always been done that way.",
+  },
+  {
+    photo: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800&q=80',
+    title: 'Make an impact at a global scale',
+    description:
+      'Your code, your designs, your analysis — deployed to real clients across India, UAE, and the USA. The impact is immediate and visible.',
+  },
+  {
+    photo: 'https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=800&q=80',
+    title: 'Grow with a team that invests in you',
+    description:
+      "Mentorship, learning budget, certifications, and a clear path forward. We don't hire and forget — we build careers.",
+  },
+] as const
+
+export interface CareersPerk {
+  icon: LucideIcon
+  title: string
+  description: string
+  tall?: boolean
+  gradient?: string
+}
+
+export const CAREERS_PERKS: CareersPerk[] = [
+  {
+    icon: Heart,
+    title: 'Health Coverage',
+    description: 'Comprehensive plans to keep you and your family protected.',
+  },
+  {
+    icon: Headphones,
+    title: 'Flexible Work Culture',
+    description: 'Balance life and work with adaptive flexibility.',
+    tall: true,
+    gradient: 'linear-gradient(135deg, rgba(124,58,237,0.08), rgba(255,255,255,0.7))',
+  },
+  {
+    icon: TrendingUp,
+    title: 'Transparent Career Growth',
+    description: 'Clear paths, fair evaluations, real opportunities.',
+  },
+  {
+    icon: Lightbulb,
+    title: 'Dedicated AI Budget',
+    description: 'Access resources and tools for cutting-edge AI.',
+  },
+  {
+    icon: ArrowUpRight,
+    title: 'Equity Share',
+    description: "Be a co-owner and grow with GravityTech's success.",
+    tall: true,
+    gradient: 'linear-gradient(135deg, rgba(31,182,232,0.08), rgba(255,255,255,0.7))',
+  },
+  {
+    icon: Users,
+    title: 'Community Exposure',
+    description: 'Collaborate with industry leaders and global communities.',
+  },
+  {
+    icon: Rocket,
+    title: 'Career Development',
+    description: 'Upskill with workshops, mentorship, and training programs.',
+  },
+  {
+    icon: Monitor,
+    title: 'High-end Laptops',
+    description: 'Premium devices, powerful performance, seamless work.',
+    tall: true,
+    gradient: 'linear-gradient(135deg, rgba(245,158,11,0.08), rgba(255,255,255,0.7))',
+  },
+  {
+    icon: DollarSign,
+    title: 'Bonus and Referrals',
+    description: 'Extra rewards for great work and referrals.',
+  },
+  {
+    icon: GraduationCap,
+    title: 'Learning Stipends',
+    description: 'Support for courses, certifications, and skill upgrades.',
+  },
+  {
+    icon: Globe,
+    title: 'Industry Best Pay',
+    description: 'Competitive salaries aligned with your contribution.',
+  },
+  {
+    icon: Scale,
+    title: 'Equal Opportunities',
+    description: 'A workplace where every voice matters.',
+  },
+]
+
+export const EXPLORE_PATHS = [
+  {
+    icon: GraduationCap,
+    label: 'Graduates / Interns',
+    tagline: 'Learn Fast, Build Real, Grow Fearless.',
+    title:
+      'Start strong with hands-on projects and mentorship that fuels your potential.',
+    quote:
+      'My internship gave me hands-on learning, constant mentor support, and a positive culture that fueled both personal and professional growth.',
+    person: 'Riddhi C.',
+    personRole: 'Java Intern → Junior Developer',
+    photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80',
+  },
+  {
+    icon: Zap,
+    label: 'Early Career Professionals',
+    tagline: 'Build Momentum From Day One.',
+    title: 'Real projects, real feedback, and a team that helps you grow fast.',
+    quote:
+      'I shipped to production in my second week. The learning curve is steep but the support system makes it worth it.',
+    person: 'Aryan M.',
+    personRole: 'Python Intern → ML Engineer',
+    photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80',
+  },
+  {
+    icon: Briefcase,
+    label: 'Experienced Professionals',
+    tagline: 'Bring Your Expertise, Multiply Your Impact.',
+    title: 'Lead, own, and drive outcomes across enterprise-grade projects.',
+    quote:
+      'I joined for the engineering culture. I stayed because of the ownership and the quality of clients we serve.',
+    person: 'Neha K.',
+    personRole: 'Senior Full Stack Developer',
+    photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80',
+  },
+  {
+    icon: Crown,
+    label: 'Executive Leaders',
+    tagline: 'Shape Strategy, Build Teams, Drive Vision.',
+    title: "Lead practices, mentor engineers, and influence GravityTech's direction.",
+    quote:
+      'The engineering culture here is rare. Pragmatic, fast-moving, and genuinely focused on outcomes.',
+    person: 'Vijay S.',
+    personRole: 'Head of Delivery',
+    photo: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&q=80',
+  },
+] as const
+
+export const FEATURED_ROLES = [
+  {
+    title: 'Java Intern',
+    description:
+      'Work on live Spring Boot microservices for enterprise clients. Hands-on from week 1.',
+  },
+  {
+    title: 'Python Intern',
+    description:
+      'Build AI features, data pipelines, and automation scripts deployed to real client environments.',
+  },
+  {
+    title: 'QA Automation Intern',
+    description:
+      'Write and run Selenium/Playwright test suites on live products with JIRA and CI/CD workflows.',
+  },
+  {
+    title: 'Data Analytics Intern',
+    description:
+      'Analyze real datasets, build Power BI/Tableau dashboards, and present insights in client demos.',
+  },
+] as const
+
+export const CAREERS_FAQ = [
+  {
+    q: 'How do I apply for a role at GravityTech?',
+    a: "Fill out the application form on this page or click 'Apply Now' on any role card. Our talent team responds within 2 business days.",
+  },
+  {
+    q: 'Can I apply for more than one role at a time?',
+    a: 'Yes. You can apply for multiple roles. We recommend tailoring your message for each role to improve your chances.',
+  },
+  {
+    q: 'What is the SCIP Program?',
+    a: "SCIP (Specialized Corporate Incubation Program) is GravityTech's flagship training initiative. We hire driven individuals and put them through 8-12 weeks of job-oriented training on live client projects.",
+  },
+  {
+    q: 'Are internship positions paid?',
+    a: 'Yes. All internship positions come with a monthly stipend. The range depends on the role and is mentioned in each job listing.',
+  },
+  {
+    q: 'Do I need prior experience for internships?',
+    a: 'No prior work experience is required for internship roles. Strong fundamentals, problem-solving ability, and the drive to learn are what we look for.',
+  },
 ] as const
