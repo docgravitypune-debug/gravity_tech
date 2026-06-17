@@ -1,11 +1,11 @@
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import { useState } from 'react'
-import type { FormEvent } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import PageHero from '../PageHero'
 import SectionBadge from '../SectionBadge'
 import TextRollButton from '../TextRollButton'
+import JobApplicationForm from '../forms/JobApplicationForm'
 import {
-  APPLY_ROLES,
   CAREERS_FAQ,
   CAREERS_PERKS,
   EXPLORE_PATHS,
@@ -24,31 +24,21 @@ function Careers() {
   const [activeFilter, setActiveFilter] = useState<RoleFilter>('All')
   const [activeTab, setActiveTab] = useState(0)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
-  const [submitted, setSubmitted] = useState(false)
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    role: '',
-    linkedin: '',
-    message: '',
-  })
+  const [searchParams] = useSearchParams()
+  const navigate = useNavigate()
+  const preselectedRole = searchParams.get('role') || ''
 
   const filteredRoles =
     activeFilter === 'All'
       ? ROLES
       : ROLES.filter((role) => role.category === activeFilter)
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setSubmitted(true)
-  }
-
-  const scrollToApply = (roleTitle?: string) => {
+  const handleApplyForRole = (roleTitle?: string) => {
     if (roleTitle) {
-      setFormData((prev) => ({ ...prev, role: roleTitle }))
+      navigate(`/careers?role=${encodeURIComponent(roleTitle)}#apply`)
+      return
     }
-    document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth' })
+    document.getElementById('apply-form')?.scrollIntoView({ behavior: 'smooth' })
   }
 
   const scrollToSection = (id: string) => {
@@ -284,7 +274,7 @@ function Careers() {
                 <div className="flex items-center justify-between">
                   <button
                     type="button"
-                    onClick={() => scrollToApply(role.title)}
+                    onClick={() => handleApplyForRole(role.title)}
                     className="flex items-center gap-1 text-xs font-medium text-[#1fb6e8] hover:underline"
                   >
                     VIEW DETAILS →
@@ -293,7 +283,7 @@ function Careers() {
                     label="Apply Now"
                     variant="primary"
                     size="sm"
-                    onClick={() => scrollToApply(role.title)}
+                    onClick={() => handleApplyForRole(role.title)}
                   />
                 </div>
               </div>
@@ -416,11 +406,11 @@ function Careers() {
                 key={role.title}
                 role="button"
                 tabIndex={0}
-                onClick={() => scrollToApply(role.title)}
+                onClick={() => handleApplyForRole(role.title)}
                 onKeyDown={(event) => {
                   if (event.key === 'Enter' || event.key === ' ') {
                     event.preventDefault()
-                    scrollToApply(role.title)
+                    handleApplyForRole(role.title)
                   }
                 }}
                 className="group cursor-pointer overflow-hidden rounded-2xl border border-gray-100 bg-white transition-all duration-300 hover:border-gray-200 hover:shadow-md"
@@ -542,121 +532,9 @@ function Careers() {
         </div>
       </section>
 
-      {/* Apply Form - kept from previous version */}
-      <section id="apply" className="bg-[#F5F5F5] pb-16 pt-16 sm:pb-20 sm:pt-20 lg:pb-28 lg:pt-28">
-        <div className="mx-auto max-w-[1440px]">
-          <div className="mb-6 px-5 sm:mb-8 sm:px-8 lg:px-12">
-            <SectionBadge number="3" label="Apply now" borderClassName="border-gray-300" />
-          </div>
-
-          <h2 className="mb-12 px-5 text-[clamp(1.5rem,4vw,3.2rem)] font-medium leading-[1.12] tracking-[-0.02em] text-gray-900 sm:mb-16 sm:px-8 lg:mb-20 lg:px-12">
-            Tell us about yourself.
-          </h2>
-
-          <div className="grid grid-cols-1 gap-12 px-5 sm:px-8 lg:grid-cols-2 lg:px-12">
-            <div>
-              <p className="mb-8 text-base leading-relaxed text-gray-600">
-                Fill out the form and our talent team will get back to you within a few business
-                days.
-              </p>
-              <div className="flex flex-col gap-3">
-                {[
-                  '⚡ Fast response — within 2 business days',
-                  '🌐 Remote-friendly roles available',
-                  '🎓 Freshers and switchers welcome',
-                ].map((badge) => (
-                  <div
-                    key={badge}
-                    className="flex items-center gap-3 rounded-full bg-white px-4 py-3 text-sm text-gray-600 shadow-sm"
-                  >
-                    {badge}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              {submitted ? (
-                <div className="rounded-2xl border border-gray-100 bg-white p-10 text-center">
-                  <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-[#1fb6e8]/10">
-                    <CheckCircle2 size={28} className="text-[#1fb6e8]" aria-hidden="true" />
-                  </div>
-                  <h3 className="mb-2 text-xl font-semibold text-gray-900">
-                    Application received!
-                  </h3>
-                  <p className="text-sm text-gray-500">
-                    We&apos;ll review it and reach out within a few business days.
-                  </p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <input
-                      type="text"
-                      required
-                      placeholder="Full Name"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm outline-none transition-all duration-200 focus:border-[#1fb6e8] focus:ring-2 focus:ring-[#1fb6e8]/10"
-                    />
-                    <input
-                      type="email"
-                      required
-                      placeholder="Email"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm outline-none transition-all duration-200 focus:border-[#1fb6e8] focus:ring-2 focus:ring-[#1fb6e8]/10"
-                    />
-                  </div>
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <input
-                      type="tel"
-                      required
-                      placeholder="Phone"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm outline-none transition-all duration-200 focus:border-[#1fb6e8] focus:ring-2 focus:ring-[#1fb6e8]/10"
-                    />
-                    <select
-                      required
-                      value={formData.role}
-                      onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                      className="rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm outline-none transition-all duration-200 focus:border-[#1fb6e8] focus:ring-2 focus:ring-[#1fb6e8]/10"
-                    >
-                      <option value="">Select Role</option>
-                      {APPLY_ROLES.map((role) => (
-                        <option key={role} value={role}>
-                          {role}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <input
-                    type="url"
-                    placeholder="LinkedIn / Portfolio"
-                    value={formData.linkedin}
-                    onChange={(e) => setFormData({ ...formData, linkedin: e.target.value })}
-                    className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm outline-none transition-all duration-200 focus:border-[#1fb6e8] focus:ring-2 focus:ring-[#1fb6e8]/10"
-                  />
-                  <textarea
-                    required
-                    rows={4}
-                    placeholder="Why GravityTech?"
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm outline-none transition-all duration-200 focus:border-[#1fb6e8] focus:ring-2 focus:ring-[#1fb6e8]/10"
-                  />
-                  <TextRollButton
-                    label="Submit Application"
-                    type="submit"
-                    variant="primary"
-                    className="w-full justify-between"
-                    size="lg"
-                  />
-                </form>
-              )}
-            </div>
-          </div>
+      <section id="apply-form" className="bg-[#0f0f0f] px-5 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-28">
+        <div className="mx-auto max-w-3xl">
+          <JobApplicationForm preselectedRole={preselectedRole} />
         </div>
       </section>
     </main>

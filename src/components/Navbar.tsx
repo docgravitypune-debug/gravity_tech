@@ -1,8 +1,7 @@
-import { Clock, Menu, X } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Clock, Menu, X } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { useIndiaTime } from '../hooks/useIndiaTime'
-import TextRollButton from './TextRollButton'
 
 const NAV_ITEMS = [
   { label: 'About Us', to: '/about' },
@@ -79,6 +78,18 @@ function Navbar() {
     }`
   const clockText = useDarkCapsules ? 'text-gray-300' : 'text-gray-600'
 
+  const scrollToQuoteForm = () => {
+    if (location.pathname === '/services') {
+      document.getElementById('quote-form')?.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+  const scrollToApplyForm = () => {
+    if (location.pathname === '/careers') {
+      document.getElementById('apply-form')?.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
     <>
       <header className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-5 py-4 sm:px-8">
@@ -99,20 +110,57 @@ function Navbar() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <div className={`${capsuleClass} hidden items-center gap-1.5 px-3 py-2 lg:flex`}>
             <Clock size={13} className={useDarkCapsules ? 'text-gray-400' : 'text-gray-500'} />
             <span className={`text-xs ${clockText}`}>{indiaTime} IST</span>
           </div>
-          <TextRollButton
-            label="Start a Project"
-            href="/careers#apply"
-            variant="dark"
-            className="!rounded-full !py-2.5 !pl-5 !pr-2 text-sm"
-          />
+
+          <Link
+            to="/services#quote"
+            onClick={scrollToQuoteForm}
+            className="group hidden items-center gap-2 rounded-full bg-[#1fb6e8] py-2 pl-5 pr-2 text-sm font-semibold text-white shadow-[0_4px_14px_rgba(31,182,232,0.35)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#0da8da] hover:shadow-[0_6px_20px_rgba(31,182,232,0.5)] sm:flex"
+          >
+            <div className="h-[18px] overflow-hidden">
+              <div className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover:-translate-y-1/2">
+                <span className="leading-[18px]">Get a Quote</span>
+                <span className="leading-[18px]" aria-hidden>
+                  Get a Quote
+                </span>
+              </div>
+            </div>
+            <div className="ml-1 flex h-6 w-6 items-center justify-center rounded-full bg-white/20">
+              <ArrowUpRight
+                size={12}
+                className="text-white transition-transform duration-300 group-hover:rotate-12"
+              />
+            </div>
+          </Link>
+
+          <Link
+            to="/careers#apply"
+            onClick={scrollToApplyForm}
+            className="group hidden items-center gap-2 rounded-full border border-gray-700 bg-gray-900 py-2 pl-4 pr-2 text-sm font-medium text-white transition-all duration-300 hover:bg-gray-800 sm:flex"
+          >
+            <div className="h-[18px] overflow-hidden">
+              <div className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover:-translate-y-1/2">
+                <span className="leading-[18px]">Join Us</span>
+                <span className="leading-[18px]" aria-hidden>
+                  Join Us
+                </span>
+              </div>
+            </div>
+            <div className="ml-1 flex h-6 w-6 items-center justify-center rounded-full bg-white/10">
+              <ArrowRight
+                size={12}
+                className="-rotate-45 text-white transition-transform duration-300 group-hover:rotate-0"
+              />
+            </div>
+          </Link>
+
           <button
             type="button"
-            className="rounded-full bg-gray-900 p-2.5 text-white md:hidden"
+            className="rounded-full bg-gray-900 p-2.5 text-white sm:hidden"
             onClick={() => setIsMenuOpen((open) => !open)}
             aria-expanded={isMenuOpen}
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
@@ -157,13 +205,44 @@ function Navbar() {
             ))}
           </nav>
 
-          <TextRollButton
-            label="Start a Project"
-            href="/careers#apply"
-            variant="dark"
-            size="lg"
-            className="w-full justify-between"
-          />
+          <div className="flex flex-col gap-3">
+            <Link
+              to="/services#quote"
+              onClick={() => {
+                setIsMenuOpen(false)
+                scrollToQuoteForm()
+              }}
+              className="group flex w-full items-center justify-between rounded-full bg-[#1fb6e8] py-3 pl-6 pr-3 text-base font-semibold text-white shadow-[0_4px_14px_rgba(31,182,232,0.35)]"
+            >
+              <div className="h-[20px] overflow-hidden">
+                <div className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover:-translate-y-1/2">
+                  <span className="leading-[20px]">Get a Quote</span>
+                  <span className="leading-[20px]" aria-hidden>
+                    Get a Quote
+                  </span>
+                </div>
+              </div>
+              <ArrowUpRight size={16} />
+            </Link>
+            <Link
+              to="/careers#apply"
+              onClick={() => {
+                setIsMenuOpen(false)
+                scrollToApplyForm()
+              }}
+              className="group flex w-full items-center justify-between rounded-full border border-gray-700 bg-gray-900 py-3 pl-6 pr-3 text-base font-medium text-white"
+            >
+              <div className="h-[20px] overflow-hidden">
+                <div className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover:-translate-y-1/2">
+                  <span className="leading-[20px]">Join Us</span>
+                  <span className="leading-[20px]" aria-hidden>
+                    Join Us
+                  </span>
+                </div>
+              </div>
+              <ArrowRight size={16} className="-rotate-45" />
+            </Link>
+          </div>
         </div>
       </div>
     </>

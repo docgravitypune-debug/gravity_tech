@@ -1,5 +1,5 @@
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './components/pages/Home'
@@ -12,7 +12,10 @@ function ScrollToTop() {
 
   useEffect(() => {
     if (hash) {
-      const element = document.getElementById(hash.slice(1))
+      const rawId = hash.slice(1)
+      const id =
+        rawId === 'apply' ? 'apply-form' : rawId === 'quote' ? 'quote-form' : rawId
+      const element = document.getElementById(id)
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' })
         return
