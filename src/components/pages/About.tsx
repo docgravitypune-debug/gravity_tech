@@ -1,8 +1,8 @@
 import { ArrowRight, Code2, Shield, TrendingUp } from 'lucide-react'
-import { useState } from 'react'
-import type { FormEvent } from 'react'
 import PageHero from '../PageHero'
 import TextRollButton from '../TextRollButton'
+import AnimatedSection from '../AnimatedSection'
+import BusinessEnquiryForm from '../forms/BusinessEnquiryForm'
 import {
   BUILD_DIFFERENTLY,
   GRADIENT_LIGHT,
@@ -15,14 +15,6 @@ import {
 const ABOUT_STATS = ['50+ Products', '30+ Engineers', '3 Offices', '100% Live Projects']
 
 function About() {
-  const [activeTab, setActiveTab] = useState<'business' | 'other'>('business')
-  const [formSubmitted, setFormSubmitted] = useState(false)
-
-  const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setFormSubmitted(true)
-  }
-
   return (
     <main>
       <PageHero>
@@ -277,6 +269,26 @@ function About() {
         </div>
       </section>
 
+      <AnimatedSection
+        className="px-5 py-16 sm:px-8 lg:px-12"
+        style={{ background: 'linear-gradient(135deg, #fce4f3 0%, #e8d5f5 40%, #f0d5a0 100%)' }}
+      >
+        <div className="mx-auto max-w-4xl text-center">
+          <h2 className="text-3xl font-semibold text-gray-900 sm:text-4xl">
+            We don&apos;t just hire.
+            <span className="block text-[#1fb6e8]">We build careers.</span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-gray-600">
+            SCIP — our Specialized Corporate Incubation Program — trains driven individuals on live
+            enterprise projects. If you&apos;re serious about building a software career, GravityTech
+            is where to start.
+          </p>
+          <div className="mt-8 flex justify-center">
+            <TextRollButton label="Learn About SCIP →" href="/careers#scip" variant="primary" />
+          </div>
+        </div>
+      </AnimatedSection>
+
       {/* Section 7: Tech Stack */}
       <section className="py-16 sm:py-20 lg:py-28" style={{ background: GRADIENT_LIGHT }}>
         <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
@@ -379,92 +391,7 @@ function About() {
               <p className="text-3xl text-gray-400">&rdquo;</p>
             </div>
 
-            <div>
-              <div className="mb-6 flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => setActiveTab('business')}
-                  className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
-                    activeTab === 'business'
-                      ? 'bg-[#1fb6e8] text-white'
-                      : 'text-gray-500'
-                  }`}
-                >
-                  Business Enquiry
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveTab('other')}
-                  className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
-                    activeTab === 'other' ? 'bg-[#1fb6e8] text-white' : 'text-gray-500'
-                  }`}
-                >
-                  Other Enquiry
-                </button>
-              </div>
-
-              {formSubmitted ? (
-                <div className="rounded-2xl border border-gray-100 bg-white p-8 text-center">
-                  <p className="text-lg font-semibold text-gray-900">Message sent!</p>
-                  <p className="mt-2 text-sm text-gray-500">
-                    We&apos;ll get back to you within a few business days.
-                  </p>
-                </div>
-              ) : (
-                <form onSubmit={handleFormSubmit} className="space-y-4">
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <input
-                      type="text"
-                      required
-                      placeholder="First Name"
-                      className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm outline-none transition-all duration-200 focus:border-[#1fb6e8] focus:ring-2 focus:ring-[#1fb6e8]/10"
-                    />
-                    <input
-                      type="email"
-                      required
-                      placeholder="Company Email"
-                      className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm outline-none transition-all duration-200 focus:border-[#1fb6e8] focus:ring-2 focus:ring-[#1fb6e8]/10"
-                    />
-                  </div>
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <input
-                      type="text"
-                      placeholder="Designation / Position"
-                      className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm outline-none transition-all duration-200 focus:border-[#1fb6e8] focus:ring-2 focus:ring-[#1fb6e8]/10"
-                    />
-                    <input
-                      type="tel"
-                      placeholder="Phone Number (Optional)"
-                      className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm outline-none transition-all duration-200 focus:border-[#1fb6e8] focus:ring-2 focus:ring-[#1fb6e8]/10"
-                    />
-                  </div>
-                  <textarea
-                    rows={4}
-                    required
-                    placeholder="Describe your requirements..."
-                    className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm outline-none transition-all duration-200 focus:border-[#1fb6e8] focus:ring-2 focus:ring-[#1fb6e8]/10"
-                  />
-                  <div className="space-y-2 text-sm text-gray-600">
-                    <label className="flex items-center gap-2">
-                      <input type="checkbox" required className="rounded" />
-                      I agree to{' '}
-                      <span className="text-[#1fb6e8] underline">GravityTech&apos;s Terms</span>
-                    </label>
-                    <label className="flex items-center gap-2">
-                      <input type="checkbox" required className="rounded" />
-                      I agree to{' '}
-                      <span className="text-[#1fb6e8] underline">Privacy Policy</span>
-                    </label>
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full rounded-xl bg-gray-900 py-3 text-sm font-medium text-white transition-colors hover:bg-gray-800"
-                  >
-                    Send Message
-                  </button>
-                </form>
-              )}
-            </div>
+            <BusinessEnquiryForm />
           </div>
         </div>
       </section>

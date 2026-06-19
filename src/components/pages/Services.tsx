@@ -1,6 +1,10 @@
+import { ArrowUpRight, CheckCircle2 } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import PageHero from '../PageHero'
 import SectionBadge from '../SectionBadge'
 import TextRollButton from '../TextRollButton'
+import AnimatedSection from '../AnimatedSection'
+import ServiceQuoteForm from '../forms/ServiceQuoteForm'
 import { SERVICES_DETAIL, WHY_GRAVITYTECH } from '../../constants/data'
 
 const HERO_STATS = [
@@ -11,6 +15,15 @@ const HERO_STATS = [
 ]
 
 function Services() {
+  const [showStickyBtn, setShowStickyBtn] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setShowStickyBtn(window.scrollY > 400)
+    onScroll()
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   return (
     <main>
       <PageHero>
@@ -114,7 +127,7 @@ function Services() {
                         </li>
                       ))}
                     </ul>
-                    <TextRollButton label="Get Started" variant="primary" href="/careers#apply" />
+                    <TextRollButton label="Get a Quote" variant="primary" href="#quote-form" />
                   </div>
                 </div>
               )
@@ -122,6 +135,34 @@ function Services() {
           </div>
         </div>
       </section>
+
+      <AnimatedSection className="bg-[#f8f9fa] px-5 py-16 sm:px-8 lg:px-12">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-10 lg:grid-cols-2">
+          <div>
+            <h2 className="mb-4 text-3xl font-semibold text-gray-900 sm:text-4xl">
+              Every service. One delivery partner.
+            </h2>
+            <p className="max-w-xl text-sm leading-relaxed text-gray-600">
+              You don&apos;t need four different agencies for CRM, HR tech, enterprise software, and
+              payroll. GravityTech does all four — with one unified team, one point of contact, and
+              one shared context across your entire tech stack.
+            </p>
+          </div>
+          <div className="space-y-4">
+            {[
+              'Same team across all service lines',
+              'Shared context — no repeated briefings',
+              'One contract, one invoice, one relationship',
+              'Scale up or down across services as needed',
+            ].map((item) => (
+              <div key={item} className="flex gap-3 text-sm text-gray-700">
+                <CheckCircle2 size={18} className="shrink-0 text-[#1fb6e8]" />
+                <p>{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </AnimatedSection>
 
       <section className="bg-[#F5F5F5] pb-16 pt-16 sm:pb-20 sm:pt-20 lg:pb-28 lg:pt-28">
         <div className="mx-auto max-w-[1440px]">
@@ -152,6 +193,47 @@ function Services() {
           </div>
         </div>
       </section>
+
+      <section id="quote-form" className="bg-gray-50 px-5 py-24 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-[1440px]">
+          <div className="mb-16 text-center">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-[#1fb6e8]">
+              Work With Us
+            </p>
+            <h2 className="mb-4 text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl">
+              Start with a free consultation.
+            </h2>
+            <p className="mx-auto max-w-xl text-gray-500">
+              Tell us about your project and we&apos;ll come back with a proposal, timeline, and team
+              that fits your needs.
+            </p>
+          </div>
+
+          <div className="mx-auto max-w-5xl">
+            <ServiceQuoteForm />
+          </div>
+        </div>
+      </section>
+
+      <div
+        className={`fixed bottom-6 right-6 z-40 transition-all duration-300 ${
+          showStickyBtn ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0 pointer-events-none'
+        }`}
+      >
+        <a
+          href="#quote-form"
+          onClick={(e) => {
+            e.preventDefault()
+            document.getElementById('quote-form')?.scrollIntoView({ behavior: 'smooth' })
+          }}
+          className="group flex items-center gap-2 rounded-full bg-[#1fb6e8] py-3 pl-5 pr-2 text-sm font-semibold text-white shadow-[0_8px_24px_rgba(31,182,232,0.4)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(31,182,232,0.5)]"
+        >
+          Get a Quote
+          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-white/20">
+            <ArrowUpRight size={13} />
+          </div>
+        </a>
+      </div>
     </main>
   )
 }
